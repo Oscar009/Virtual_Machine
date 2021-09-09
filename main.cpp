@@ -1,11 +1,13 @@
 #include <iostream>
+#include "PC.h"
 
 using namespace std;
 
 int main()
 {
+    PC r;
 
-    cout << "Si compila" << endl;
+    cout << r.getValue() << endl;
 
     return 0;
 }
