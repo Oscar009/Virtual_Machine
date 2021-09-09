@@ -4,7 +4,7 @@
 class ProgramLoader
 {
 public:
-    ProgramLoader(){}
+    ProgramLoader();
 };
 
 #endif
