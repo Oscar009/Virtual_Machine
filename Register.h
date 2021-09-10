@@ -3,11 +3,13 @@
 
 class Register
 {
-    int value = 1;
+    int value;
+
 public:
     Register();
 
     int getValue();
+    void setValue(int);
 };
 
 #endif

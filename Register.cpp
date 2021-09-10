@@ -1,5 +1,7 @@
 #include "Register.h"
 
-Register::Register(){}
+Register::Register() {}
 
 int Register::getValue() { return value; }
+
+void Register::setValue(int newValue) { value = newValue; }
