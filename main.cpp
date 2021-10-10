@@ -8,7 +8,7 @@ Autor: Oscar Noe Ortiz Barba
 #include "VirtualMachine.h"
 #include "CPU.h"
 #include "Memory.h"
-#include "ProgramLoader.h"
+#include "Program.h"
 #include "ALU.h"
 #include "CU.h"
 #include "Register.h"
@@ -21,27 +21,20 @@ Autor: Oscar Noe Ortiz Barba
 #include "AH.h"
 #include "BL.h"
 #include "BH.h"
+#include "Instruction.h"
+#include "Memory.h"
+#include "ProgramLoader.h"
+//
+#include "START.h"
+#include "END.h"
+#include "ADD.h"
 
 using namespace std;
 
 int main()
 {
-    system("clear");
-    cout << "----- VIRTUAL MACHINE -----\n\n";
-    cout << "----- INSTRUCTIONS -----\n\n";
-
-    string *instructions = new string[3];
-
-    instructions[0] = "START";
-    instructions[1] = "ADD 5, 6";
-    instructions[2] = "END";
-
-    for (int i = 0; i < 3; i++)
-    {
-        cout << i + 1 << ". " << instructions[i] << endl;
-    }
-
     //instancia de maquina virtual
+    //registros
     PC programCounter;
     IR instructionRegister;
     MAR memoryAddressRegister;
@@ -51,7 +44,8 @@ int main()
     AH aHigh;
     BL bLow;
     BH bHigh;
-    Register registers[] = {
+    //arreglo de registros
+    /* Register registers[] = {
         programCounter,
         instructionRegister,
         memoryAddressRegister,
@@ -60,18 +54,65 @@ int main()
         aLow,
         aHigh,
         bLow,
-        bHigh};
+        bHigh}; */
+    //Elementos de VirtualMachine
     ALU arithmeticLogicalUnit;
     CU controlUnit;
-    VirtualMachine VM(registers, arithmeticLogicalUnit, controlUnit);
+    Memory memory;
+    ProgramLoader programLoader;
+    VirtualMachine VM;
 
-    //mostrar registros
+    system("clear");
+    cout << "----- VIRTUAL MACHINE -----\n\n";
+    //Cargar el programa
+    cout << "----- INSTRUCTIONS -----\n\n";
 
-    cout << "----- Registros -----\n\n";
-    VM.showRegisters();
+    START start("START", 50, 1);
+    ADD add("ADD", 80, 3, 40, 10);
+    END end("END", 51, 1);
+
+    Program program(3);
+
+    program.addInstruction(start);
+    program.addInstruction(add);
+    program.addInstruction(end);
+
+    //cout << "Size: " << program.getSize() << endl;
+
+    //mostrar instrucciones
+    for (int i = 0; i < program.getSize(); i++)
+    {
+        Instruction in = program.getInstruction(i);
+        if (in.getName() == "START")
+        {
+            cout << in.getName() << endl;
+        }
+        else if (in.getName() == "END")
+        {
+            cout << in.getName() << endl;
+        }
+        else if (in.getName() == "ADD")
+        {
+
+            cout << in.getName() << " ";
+
+            auto* ptr_add = static_cast<ADD*>(&in);
+            cout << ptr_add->getOperand1() << ", ";
+            cout << ptr_add->getOperand2() << endl;
+
+            /* auto* ptr_add = dynamic_cast<ADD*>(&add);
+            cout << ptr_add->getOperand1() << ", ";
+            cout << ptr_add->getOperand2() << endl; */
+        }
+    }
+
+    //machine cycle
+
+    //programar CU
+
+    //El PC apunta a la primera instruction
 
     cout << "\n\n";
 
-    delete[] instructions;
     return 0;
 }

@@ -1,5 +1,7 @@
 #include "VirtualMachine.h"
 
+VirtualMachine::VirtualMachine() {}
+
 VirtualMachine::VirtualMachine(Register *r, ALU alu, CU cu)
 {
     _registers = r;

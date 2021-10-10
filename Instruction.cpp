@@ -2,10 +2,19 @@
 
 Instruction::Instruction() {}
 
-void Instruction::setRegistro(int newValue){
-    _registro = newValue;
+Instruction::Instruction(string _name, short int _code, short int _length) : name(_name), code(_code), length(_length) {}
+
+void Instruction::display()
+{
+    cout << name << ", " << code << ", " << length << endl;
 }
 
-void Instruction::setAddress(int newValue){
-    _address = newValue;
+int Instruction::getCode()
+{
+    return code;
+}
+
+string Instruction::getName()
+{
+    return name;
 }

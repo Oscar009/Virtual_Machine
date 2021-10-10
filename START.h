@@ -1,10 +1,16 @@
 #ifndef START_h
 #define START_h
 
-class START
+#include "Instruction.h"
+#include <string>
+
+using namespace std;
+
+class START : public Instruction
 {
 public:
     START();
+    START(string, int, int);
 };
 
 #endif

@@ -15,6 +15,7 @@ class VirtualMachine
     CU _controlUnit;
 
 public:
+    VirtualMachine();
     VirtualMachine(Register *, ALU, CU);
     ~VirtualMachine();
 

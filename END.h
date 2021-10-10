@@ -1,10 +1,14 @@
 #ifndef END_h
 #define END_h
 
-class END
+#include "Instruction.h"
+#include <string>
+
+class END : public Instruction
 {
 public:
     END();
+    END(string, int, int);
 };
 
 #endif
