@@ -8,11 +8,12 @@ class Program
 {
     Instruction* instructions;
     int size;
+    int length;
 
 public:
     Program(int);
 
-    void addInstruction(Instruction);
+    void addInstruction(Instruction*);
     Instruction getInstruction(int);
 
     int getSize();

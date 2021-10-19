@@ -4,11 +4,12 @@ Program::Program(int _length)
 {
     instructions = new Instruction[_length];
     size = 0;
+    length = _length;
 }
 
-void Program::addInstruction(Instruction newInstruction)
+void Program::addInstruction(Instruction* newInstruction)
 {
-    instructions[size++] = newInstruction;
+    instructions[size++] = *newInstruction;
 }
 
 Instruction Program::getInstruction(int index)

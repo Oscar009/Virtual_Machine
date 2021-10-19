@@ -73,9 +73,9 @@ int main()
 
     Program program(3);
 
-    program.addInstruction(start);
-    program.addInstruction(add);
-    program.addInstruction(end);
+    program.addInstruction(&start);
+    program.addInstruction(&add);
+    program.addInstruction(&end);
 
     //cout << "Size: " << program.getSize() << endl;
 

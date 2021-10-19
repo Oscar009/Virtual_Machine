@@ -5,6 +5,8 @@ class CU
 {
 public:
     CU();
+
+    void machineCycle();
 };
 
 #endif
