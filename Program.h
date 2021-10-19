@@ -15,6 +15,7 @@ public:
 
     void addInstruction(Instruction*);
     Instruction getInstruction(int);
+    Instruction* getInstructions();
 
     int getSize();
 };

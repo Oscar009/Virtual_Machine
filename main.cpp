@@ -35,17 +35,17 @@ int main()
 {
     //instancia de maquina virtual
     //registros
-    PC programCounter;
-    IR instructionRegister;
-    MAR memoryAddressRegister;
-    MBR memoryBufferRegister;
-    ACC accumulator;
-    AL aLow;
-    AH aHigh;
-    BL bLow;
-    BH bHigh;
+    PC programCounter("PC");
+    IR instructionRegister("IR");
+    MAR memoryAddressRegister("MAR");
+    MBR memoryBufferRegister("MBR");
+    ACC accumulator("ACC");
+    AL aLow("AL");
+    AH aHigh("AH");
+    BL bLow("BL");
+    BH bHigh("BH");
     //arreglo de registros
-    /* Register registers[] = {
+    Register registers[] = {
         programCounter,
         instructionRegister,
         memoryAddressRegister,
@@ -54,7 +54,7 @@ int main()
         aLow,
         aHigh,
         bLow,
-        bHigh}; */
+        bHigh};
     //Elementos de VirtualMachine
     ALU arithmeticLogicalUnit;
     CU controlUnit;
@@ -96,7 +96,7 @@ int main()
 
             cout << in.getName() << " ";
 
-            auto* ptr_add = static_cast<ADD*>(&in);
+            auto *ptr_add = static_cast<ADD *>(&in);
             cout << ptr_add->getOperand1() << ", ";
             cout << ptr_add->getOperand2() << endl;
 
@@ -108,9 +108,7 @@ int main()
 
     //machine cycle
 
-    //programar CU
-
-    //El PC apunta a la primera instruction
+    controlUnit.machineCycle(program.getInstructions(), registers);
 
     cout << "\n\n";
 
