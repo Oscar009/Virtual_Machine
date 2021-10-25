@@ -37,7 +37,7 @@ int ALU::Mult(int value1, int value2)
 
 int ALU::Div(int value1, int value2)
 {
-    int res;
+    int res, rem;
 
     __asm("movl $0x0, %%edx;"
           "movl %2, %%eax;"

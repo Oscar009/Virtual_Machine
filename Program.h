@@ -3,19 +3,22 @@
 
 #include "Instruction.h"
 #include <iostream>
+#include "ADD.h"
+
+using namespace std;
 
 class Program
 {
-    Instruction* instructions;
+    Instruction *instructions[3];
     int size;
     int length;
 
 public:
     Program(int);
 
-    void addInstruction(Instruction*);
-    Instruction getInstruction(int);
-    Instruction* getInstructions();
+    void addInstruction(Instruction *);
+    Instruction *getInstruction(int);
+    Instruction *getInstructions();
 
     int getSize();
 };

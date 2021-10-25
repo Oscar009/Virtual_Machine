@@ -68,46 +68,38 @@ int main()
     cout << "----- INSTRUCTIONS -----\n\n";
 
     START start("START", 50, 1);
-    ADD add("ADD", 80, 3, 40, 10);
+    ADD* add = new ADD("ADD", 80, 3, 40, 10);
     END end("END", 51, 1);
 
     Program program(3);
 
     program.addInstruction(&start);
-    program.addInstruction(&add);
+    program.addInstruction(add);
     program.addInstruction(&end);
-
-    //cout << "Size: " << program.getSize() << endl;
 
     //mostrar instrucciones
     for (int i = 0; i < program.getSize(); i++)
     {
-        Instruction in = program.getInstruction(i);
-        if (in.getName() == "START")
+        Instruction* in = program.getInstruction(i);
+        if (in->getName() == "START")
         {
-            cout << in.getName() << endl;
+            cout << in->getName() << endl;
         }
-        else if (in.getName() == "END")
+        else if (in->getName() == "END")
         {
-            cout << in.getName() << endl;
+            cout << in->getName() << endl;
         }
-        else if (in.getName() == "ADD")
+        else if (in->getName() == "ADD")
         {
-
-            cout << in.getName() << " ";
-
-            auto *ptr_add = static_cast<ADD *>(&in);
+            cout << in->getName() << " ";
+            auto *ptr_add = static_cast<ADD *>(in);
             cout << ptr_add->getOperand1() << ", ";
             cout << ptr_add->getOperand2() << endl;
-
-            /* auto* ptr_add = dynamic_cast<ADD*>(&add);
-            cout << ptr_add->getOperand1() << ", ";
-            cout << ptr_add->getOperand2() << endl; */
         }
     }
-
+    
     //machine cycle
-
+    
     controlUnit.machineCycle(program.getInstructions(), registers);
 
     cout << "\n\n";
