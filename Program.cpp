@@ -3,7 +3,7 @@
 Program::Program(int _length)
 {
     size = 0;
-    length = _length;;
+    length = _length;
 }
 
 void Program::addInstruction(Instruction* newInstruction)
@@ -16,6 +16,6 @@ Instruction* Program::getInstruction(int index)
         return instructions[index];
 }
 
-Instruction *Program::getInstructions() { return *instructions; }
+Instruction **Program::getInstructions() { return instructions; }
 
 int Program::getSize() { return size; }

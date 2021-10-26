@@ -104,5 +104,6 @@ int main()
 
     cout << "\n\n";
 
+    delete []add;
     return 0;
 }

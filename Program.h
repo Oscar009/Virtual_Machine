@@ -14,11 +14,12 @@ class Program
     int length;
 
 public:
+    Program(){}
     Program(int);
 
     void addInstruction(Instruction *);
     Instruction *getInstruction(int);
-    Instruction *getInstructions();
+    Instruction **getInstructions();
 
     int getSize();
 };
