@@ -24,12 +24,14 @@ Autor: Oscar Noe Ortiz Barba
 #include "Instruction.h"
 #include "Memory.h"
 #include "ProgramLoader.h"
-//
+//------------------------
 #include "START.h"
 #include "END.h"
 #include "ADD.h"
 
 using namespace std;
+
+void printRegisters(Register[]);
 
 int main()
 {
@@ -64,11 +66,9 @@ int main()
 
     system("clear");
     cout << "----- VIRTUAL MACHINE -----\n\n";
-    //Cargar el programa
-    cout << "----- INSTRUCTIONS -----\n\n";
 
     START start("START", 50, 1);
-    ADD* add = new ADD("ADD", 80, 3, 40, 10);
+    ADD *add = new ADD("ADD", 80, 3, 40, 10);
     END end("END", 51, 1);
 
     Program program(3);
@@ -77,33 +77,62 @@ int main()
     program.addInstruction(add);
     program.addInstruction(&end);
 
-    //mostrar instrucciones
+    //registros para machinecyle
+    //instancia PC
+    auto *ptr_PC = static_cast<PC *>(&registers[0]);
+    //instancia MAR
+    auto *ptr_MAR = static_cast<MAR *>(&registers[2]);
+    //instancia IR
+    auto *ptr_IR = static_cast<IR *>(&registers[1]);
+
+    //imprimir instrucciones
+    //llenar default los registros e imprimirlos vacios 
+
+    //machineCycle
+    Instruction *in;
     for (int i = 0; i < program.getSize(); i++)
     {
-        Instruction* in = program.getInstruction(i);
-        if (in->getName() == "START")
-        {
-            cout << in->getName() << endl;
-        }
-        else if (in->getName() == "END")
-        {
-            cout << in->getName() << endl;
-        }
-        else if (in->getName() == "ADD")
-        {
-            cout << in->getName() << " ";
-            auto *ptr_add = static_cast<ADD *>(in);
-            cout << ptr_add->getOperand1() << ", ";
-            cout << ptr_add->getOperand2() << endl;
-        }
+        //fetch
+        in = controlUnit.fetch(&program, i);
+        //PC apunta a la primera instruccion
+        ptr_PC->setAddress(in);
+        //PC pasa a la MAR la dirección de la instruction
+        ptr_MAR->setAddress(ptr_PC->getAddress());
+        //guardar instruccion en el IR
+        ptr_IR->setInstruction(ptr_MAR->getAddress());
+        printRegisters(registers);
+
+        //decode
+        //obtener el codigo a traves del IR
+        int code = controlUnit.decode(ptr_IR->getInstruction());
+        printRegisters(registers);
+
+        //Execute
+        controlUnit.execute(code, ptr_IR->getInstruction());
+        printRegisters(registers);
+
     }
-    
-    //machine cycle
-    
-    controlUnit.machineCycle(program.getInstructions(), registers);
 
     cout << "\n\n";
 
-    delete []add;
     return 0;
+}
+
+void printRegisters(Register r[]){
+    auto *ptr_PC = static_cast<PC *>(&r[0]);
+    //instancia MAR
+    auto *ptr_MAR = static_cast<MAR *>(&r[2]);
+    //instancia IR
+    auto *ptr_IR = static_cast<IR *>(&r[1]);
+    cout << "\n-----------------------------------------";
+    cout << "\nPC: " << ptr_PC->getAddress();
+    cout << "\tAL: " << r[5].getValue();
+    cout << "\nIR: " << ptr_IR->getInstruction();
+    cout << "\tAH: " << r[6].getValue();
+    cout << "\nACC: " << r[4].getValue();
+    cout << "\tBL: " << r[7].getValue();
+    cout << "\nMAR: " << ptr_MAR->getAddress();
+    cout << "\tBH: " << r[8].getValue();
+    cout << "\nMBR: " << r[3].getValue();
+    cout << "\n-----------------------------------------\n";
 }

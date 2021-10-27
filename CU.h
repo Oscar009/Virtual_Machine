@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Instruction.h"
 #include "Register.h"
+#include "Program.h"
 #include "PC.h"
 #include "MAR.h"
 #include "IR.h"
@@ -22,8 +23,12 @@ public:
     CU();
 	CU(string, ALU);
 
-    void machineCycle(Instruction**, Register*);
+    Instruction * fetch(Program*, int); 
+    int decode(Instruction*);
     void execute(int, Instruction*);
+
+    void displayStatus();
+    void setStatus(string);
 };
 
 #endif

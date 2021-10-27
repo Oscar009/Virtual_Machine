@@ -4,43 +4,24 @@ CU::CU() {}
 
 CU::CU(string s, ALU _alu) : status(s), alu(_alu) {}
 
-void CU::machineCycle(Instruction **_instructions, Register *registros)
+Instruction *CU::fetch(Program *program, int index)
 {
-    int j = 0;
-    //instancia PC
-    auto *ptr_PC = static_cast<PC *>(&registros[0]);
-    //instancia MAR
-    auto *ptr_MAR = static_cast<MAR *>(&registros[2]);
-    //instancia IR
-    auto *ptr_IR = static_cast<IR *>(&registros[1]);
+    setStatus("Fetch");
+    displayStatus();
+    return program->getInstruction(index);
+}
 
-     for (int i = 0; i < 3; i++)
-    {
-        cout << "fetch\n";
-        //fetch
-        //PC apunta a la primera instruccion
-        ptr_PC->setAddress(_instructions[i]);
-        //PC pasa a la MAR la dirección de la instruction
-        ptr_MAR->setAddress(ptr_PC->getAddress());
-        //guardar instruccion en el IR
-        ptr_IR->setInstruction(ptr_MAR->getAddress());
-        //la instruccion siguiente en el fetch aumenta con el indice j
-        //Decode
-        cout << "Decode\n";
-        int code = ptr_IR->getInstruction()->getCode();
-
-        ptr_IR->getInstruction()->display();
-
-        cout << "Execute\n";
-        //Execute
-        execute(code, ptr_IR->getInstruction());
-    }
-
+int CU::decode(Instruction *in)
+{
+    setStatus("Decode");
+    displayStatus();
+    return in->getCode();
 }
 
 void CU::execute(int _code, Instruction *in)
 {
-
+    setStatus("Execute");
+    displayStatus();
     switch (_code)
     {
     case 50:
@@ -50,10 +31,14 @@ void CU::execute(int _code, Instruction *in)
         cout << "END" << endl;
         break;
     case 80:
-        cout << "ADD" << endl;
-        /* auto* ptr_add = static_cast<ADD*>(in);
-        cout << endl << alu.Add(ptr_add->getOperand1(), ptr_add->getOperand2()) << endl; */
-        break;
+    {
+        cout << in->getName();
+        auto *ptr_add = static_cast<ADD *>(in);
+        cout << " " << ptr_add->getOperand1() << ", ";
+        cout << ptr_add->getOperand2() << endl;
+        alu.Add(ptr_add->getOperand1(), ptr_add->getOperand1());
+    }
+    break;
     case 81:
         cout << "DIV" << endl;
         break;
@@ -72,4 +57,12 @@ void CU::execute(int _code, Instruction *in)
     default:
         break;
     }
+}
+
+void CU::setStatus(string _status){
+    status = _status;
+}
+    
+void CU::displayStatus(){ 
+    cout << "\n" << status << "\n";
 }
