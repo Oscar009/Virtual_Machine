@@ -4,7 +4,7 @@ ALU::ALU() {}
 
 int ALU::Add(int value1, int value2)
 {
-    int res;
+    register int res;
 
     __asm("addl %%ebx, %%eax;"
           : "=a"(res)

@@ -4,6 +4,8 @@ Autor: Oscar Noe Ortiz Barba
 //--------------------------
 #include <iostream>
 #include <string>
+#include <stdio.h>
+#include <stdlib.h>
 //--------------------------
 #include "VirtualMachine.h"
 #include "CPU.h"
@@ -33,7 +35,7 @@ using namespace std;
 
 void printRegisters(Register[]);
 
-int main()
+int main(int argc, char *argv[])
 {
     //instancia de maquina virtual
     //registros
@@ -68,7 +70,7 @@ int main()
     cout << "----- VIRTUAL MACHINE -----\n\n";
 
     START start("START", 50, 1);
-    ADD *add = new ADD("ADD", 80, 3, 40, 10);
+    ADD *add = new ADD("ADD", 80, 3, 30, 10);
     END end("END", 51, 1);
 
     Program program(3);
@@ -86,10 +88,12 @@ int main()
     auto *ptr_IR = static_cast<IR *>(&registers[1]);
 
     //imprimir instrucciones
-    //llenar default los registros e imprimirlos vacios 
+    //los registrosimprimirlos vacios
+
+
 
     //machineCycle
-    Instruction *in;
+    Instruction *in = new Instruction();
     for (int i = 0; i < program.getSize(); i++)
     {
         //fetch
@@ -100,6 +104,7 @@ int main()
         ptr_MAR->setAddress(ptr_PC->getAddress());
         //guardar instruccion en el IR
         ptr_IR->setInstruction(ptr_MAR->getAddress());
+        registers[4].setValue(registers[4].getValue() + 1);
         printRegisters(registers);
 
         //decode
@@ -110,15 +115,17 @@ int main()
         //Execute
         controlUnit.execute(code, ptr_IR->getInstruction());
         printRegisters(registers);
-
     }
 
     cout << "\n\n";
 
+    delete[] ptr_PC;
+
     return 0;
 }
 
-void printRegisters(Register r[]){
+void printRegisters(Register r[])
+{
     auto *ptr_PC = static_cast<PC *>(&r[0]);
     //instancia MAR
     auto *ptr_MAR = static_cast<MAR *>(&r[2]);
@@ -130,7 +137,7 @@ void printRegisters(Register r[]){
     cout << "\nIR: " << ptr_IR->getInstruction();
     cout << "\tAH: " << r[6].getValue();
     cout << "\nACC: " << r[4].getValue();
-    cout << "\tBL: " << r[7].getValue();
+    cout << "\t\t\tBL: " << r[7].getValue();
     cout << "\nMAR: " << ptr_MAR->getAddress();
     cout << "\tBH: " << r[8].getValue();
     cout << "\nMBR: " << r[3].getValue();

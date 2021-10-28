@@ -4,27 +4,7 @@ int main(int argc, char *argv[])
 {
 
       int res;
-      int value1 = 10, value2 = 3, rem;
-      /* __asm("movl $10, %%eax;"
-            "movl	$4, %%ebx;"
-            "subl %%ebx, %%eax;"
-            : "=a"(res));
-
-      printf("res = %i\n", res);
-
-      __asm("movl $10, %%eax;"
-            "movl	$4, %%ebx;"
-            "addl %%ebx, %%eax;"
-            : "=a"(res));
-
-      printf("add = %i\n", res);
-
-      __asm("movl $10, %%eax;"
-            "movl	$4, %%ebx;"
-            "imull %%ebx, %%eax;"
-            : "=a"(res));
-
-      printf("mult = %i\n", res); */
+      int value1 = 30, value2 = 10, rem;
 
       __asm("addl %%ebx, %%eax;"
             : "=a"(res)

@@ -16,6 +16,7 @@ class Program
 public:
     Program(){}
     Program(int);
+    ~Program();
 
     void addInstruction(Instruction *);
     Instruction *getInstruction(int);

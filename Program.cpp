@@ -6,14 +6,20 @@ Program::Program(int _length)
     length = _length;
 }
 
-void Program::addInstruction(Instruction* newInstruction)
+Program::~Program()
+{
+    *instructions = nullptr;
+    delete[] instructions;
+}
+
+void Program::addInstruction(Instruction *newInstruction)
 {
     instructions[size++] = newInstruction;
 }
 
-Instruction* Program::getInstruction(int index)
+Instruction *Program::getInstruction(int index)
 {
-        return instructions[index];
+    return instructions[index];
 }
 
 Instruction **Program::getInstructions() { return instructions; }

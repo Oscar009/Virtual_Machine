@@ -1,5 +1,5 @@
 #include "BL.h"
 
-BL::BL(){}
+BL::BL() {}
 
-BL::BL(string _name):Register(_name) {}
+BL::BL(string _name) : Register(_name) { setValue(0); }
