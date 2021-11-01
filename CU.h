@@ -11,21 +11,27 @@
 #include "IR.h"
 #include "ALU.h"
 #include "ADD.h"
+#include "MULT.h"
+#include "DIV.h"
+#include "MOV.h"
+#include "STO.h"
+#include "REST.h"
 
 using namespace std;
 
-class CU 
+class CU
 {
     string status;
     ALU alu;
+    Register *registers;
 
 public:
     CU();
-	CU(string, ALU);
+    CU(string, Register *, ALU);
 
-    Instruction * fetch(Program*, int); 
-    int decode(Instruction*);
-    void execute(int, Instruction*);
+    Instruction *fetch(Program *, int, int);
+    int decode(Instruction *);
+    void execute(int, Instruction *);
 
     void displayStatus();
     void setStatus(string);

@@ -6,12 +6,6 @@ Program::Program(int _length)
     length = _length;
 }
 
-Program::~Program()
-{
-    *instructions = nullptr;
-    delete[] instructions;
-}
-
 void Program::addInstruction(Instruction *newInstruction)
 {
     instructions[size++] = newInstruction;

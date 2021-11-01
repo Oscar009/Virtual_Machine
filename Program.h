@@ -9,14 +9,13 @@ using namespace std;
 
 class Program
 {
-    Instruction *instructions[3];
+    Instruction *instructions[10];
     int size;
     int length;
 
 public:
     Program(){}
     Program(int);
-    ~Program();
 
     void addInstruction(Instruction *);
     Instruction *getInstruction(int);

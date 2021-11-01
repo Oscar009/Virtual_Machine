@@ -2,12 +2,16 @@
 
 CU::CU() {}
 
-CU::CU(string s, ALU _alu) : status(s), alu(_alu) {}
+CU::CU(string s, Register *_r, ALU _alu) : status(s), alu(_alu) {
+    _r = registers;
+}
 
-Instruction *CU::fetch(Program* program, int index)
+Instruction *CU::fetch(Program *program, int index, int flag)
 {
-    setStatus("Fetch");
-    displayStatus();
+    if(flag){
+        setStatus("Fetch");
+        displayStatus();
+    }
     return program->getInstruction(index);
 }
 
@@ -40,29 +44,59 @@ void CU::execute(int _code, Instruction *in)
     }
     break;
     case 81:
-        cout << "DIV" << endl;
-        break;
+    {
+        cout << in->getName();
+        auto *ptr_mult = static_cast<MULT *>(in);
+        cout << " " << ptr_mult->getOperand1() << ", ";
+        cout << ptr_mult->getOperand2() << endl;
+        cout << "Result: " << alu.Mult(ptr_mult->getOperand1(), ptr_mult->getOperand2());
+    }
+    break;
     case 82:
-        cout << "MULT" << endl;
-        break;
+    {
+        cout << in->getName();
+        auto *ptr_div = static_cast<DIV *>(in);
+        cout << " " << ptr_div->getOperand1() << ", ";
+        cout << ptr_div->getOperand2() << endl;
+        cout << "Result: " << alu.Div(ptr_div->getOperand1(), ptr_div->getOperand2());
+    }
+    break;
     case 83:
-        cout << "DIV" << endl;
-        break;
+    {
+        cout << in->getName();
+        auto *ptr_rest = static_cast<REST *>(in);
+        cout << " " << ptr_rest->getOperand1() << ", ";
+        cout << ptr_rest->getOperand2() << endl;
+        cout << "Result: " << alu.Rest(ptr_rest->getOperand1(), ptr_rest->getOperand2());
+    }
+    break;
     case 84:
-        cout << "MOV" << endl;
-        break;
+    {
+        cout << in->getName();
+        auto *ptr_mov = static_cast<MOV *>(in);
+        cout << " " << ptr_mov->getValue() << ", ";
+        cout << ptr_mov->getNameOfRegister() << endl;
+        //encontrar registro
+
+        //alu.Mov(ptr_mov->getValue(), );
+    }
+    break;
     case 85:
-        cout << "STO" << endl;
-        break;
+    {
+    }
+    break;
     default:
         break;
     }
 }
 
-void CU::setStatus(string _status){
+void CU::setStatus(string _status)
+{
     status = _status;
 }
-    
-void CU::displayStatus(){ 
-    cout << "\n" << status << "\n";
+
+void CU::displayStatus()
+{
+    cout << "\n"
+         << status << "\n";
 }
