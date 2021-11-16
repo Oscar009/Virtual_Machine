@@ -73,24 +73,28 @@ int main(int argc, char *argv[])
     system("clear");
     cout << "----- VIRTUAL MACHINE -----\n\n";
 
-    START start("START", 50, 1);
+    cout << "----- Lexical analyzer -----\n\n";
+
+    
+
+    START *start = new START("START", 50, 1);
     ADD *add = new ADD("ADD", 80, 3, 30, 10);
     MULT *mult = new MULT("MULT", 81, 3, 30, 10);
     DIV *div = new DIV("DIV", 82, 3, 30, 10);
     REST *rest = new REST("REST", 83, 3, 30, 10);
-    MOV *mov = new MOV("MOV", 84, 3, 30, "AL");
-    //MOV *sto = new STO("STO", 85, 3, 30, 10);
-    END end("END", 51, 1);
+    MOV *mov = new MOV("MOV", 84, 3, 30, "BL");
+    //STO *sto = new STO("STO", 85, 3, 30, 10);
+    END *end = new END("END", 51, 1);
 
-    Program program(3);
+    Program program(10);
 
-    program.addInstruction(&start);
+    program.addInstruction(start);
     program.addInstruction(add);
     program.addInstruction(mult);
     program.addInstruction(div);
     program.addInstruction(rest);
     program.addInstruction(mov);
-    program.addInstruction(&end);
+    program.addInstruction(end);
 
     cpu.machineCycle(&program);
 
@@ -98,5 +102,3 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
-

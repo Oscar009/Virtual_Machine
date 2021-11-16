@@ -1,0 +1,22 @@
+int main(void) 
+{
+   int op1, suma;
+   int op2 = 12;
+
+   op1 = 36;
+  
+   suma = op1 + op2;
+   
+   int resta = 0;
+   resta = op1 - op2;
+
+   int mult;
+
+   mult = op1 * op2 * 1;
+
+   int div;
+
+   div = 144 / 12;
+
+   return 0;
+}

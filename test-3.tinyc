@@ -1,0 +1,19 @@
+int multop();
+
+int main(void)
+{
+   int total = 0;
+
+   total = multop();
+
+   return 0;
+}
+
+int multop()
+{
+  int total;
+
+  total = (3 *((12 + 2) - (2 * 3)) - (1 * ((52 + 12) - 4)))
+
+  return total; 
+}

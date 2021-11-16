@@ -31,7 +31,7 @@ public:
 
     Instruction *fetch(Program *, int, int);
     int decode(Instruction *);
-    void execute(int, Instruction *);
+    Register *execute(int, Instruction *);
 
     void displayStatus();
     void setStatus(string);

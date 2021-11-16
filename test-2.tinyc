@@ -1,0 +1,42 @@
+int suma(int op1, op2);
+int rest(int op1, op2);
+int mult(int op1, op2);
+int div(int op1, op2);
+
+int main(void)
+{
+   int total = 0;
+
+   total = suma(10, 2);
+   
+   int op1 = 42;
+   int op2 = 2;
+ 
+   total = rest(op1, op2);
+
+   total = mult(op2, 10);
+
+   total = div(op1, 2);
+
+   return 0;
+}
+
+int suma(int op1, op2)
+{
+  return op1 + op2;
+}
+
+int rest(int op1, op2)
+{
+  return op1 - op2;
+}
+
+int mult(int op1, op2)
+{
+  return op1 * op2;
+}
+
+int div(int op1, op2)
+{
+  return op1 / op2;
+}

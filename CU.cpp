@@ -2,13 +2,15 @@
 
 CU::CU() {}
 
-CU::CU(string s, Register *_r, ALU _alu) : status(s), alu(_alu) {
+CU::CU(string s, Register *_r, ALU _alu) : status(s), alu(_alu)
+{
     _r = registers;
 }
 
 Instruction *CU::fetch(Program *program, int index, int flag)
 {
-    if(flag){
+    if (flag)
+    {
         setStatus("Fetch");
         displayStatus();
     }
@@ -22,8 +24,9 @@ int CU::decode(Instruction *in)
     return in->getCode();
 }
 
-void CU::execute(int _code, Instruction *in)
+Register *CU::execute(int _code, Instruction *in)
 {
+    Register *aux = new Register();
     setStatus("Execute");
     displayStatus();
     switch (_code)
@@ -40,7 +43,8 @@ void CU::execute(int _code, Instruction *in)
         auto *ptr_add = static_cast<ADD *>(in);
         cout << " " << ptr_add->getOperand1() << ", ";
         cout << ptr_add->getOperand2() << endl;
-        cout << "Result: " << alu.Add(ptr_add->getOperand1(), ptr_add->getOperand2());
+        //cout << "Result: " << alu.Add(ptr_add->getOperand1(), ptr_add->getOperand2());
+        aux->setValue(alu.Rest(ptr_add->getOperand1(), ptr_add->getOperand2()));
     }
     break;
     case 81:
@@ -49,7 +53,8 @@ void CU::execute(int _code, Instruction *in)
         auto *ptr_mult = static_cast<MULT *>(in);
         cout << " " << ptr_mult->getOperand1() << ", ";
         cout << ptr_mult->getOperand2() << endl;
-        cout << "Result: " << alu.Mult(ptr_mult->getOperand1(), ptr_mult->getOperand2());
+        //cout << "Result: " << alu.Mult(ptr_mult->getOperand1(), ptr_mult->getOperand2());
+        aux->setValue(alu.Rest(ptr_mult->getOperand1(), ptr_mult->getOperand2()));
     }
     break;
     case 82:
@@ -58,7 +63,8 @@ void CU::execute(int _code, Instruction *in)
         auto *ptr_div = static_cast<DIV *>(in);
         cout << " " << ptr_div->getOperand1() << ", ";
         cout << ptr_div->getOperand2() << endl;
-        cout << "Result: " << alu.Div(ptr_div->getOperand1(), ptr_div->getOperand2());
+        //cout << "Result: " << alu.Div(ptr_div->getOperand1(), ptr_div->getOperand2());
+        aux->setValue(alu.Rest(ptr_div->getOperand1(), ptr_div->getOperand2()));
     }
     break;
     case 83:
@@ -67,7 +73,8 @@ void CU::execute(int _code, Instruction *in)
         auto *ptr_rest = static_cast<REST *>(in);
         cout << " " << ptr_rest->getOperand1() << ", ";
         cout << ptr_rest->getOperand2() << endl;
-        cout << "Result: " << alu.Rest(ptr_rest->getOperand1(), ptr_rest->getOperand2());
+        //cout << "Result: " << alu.Rest(ptr_rest->getOperand1(), ptr_rest->getOperand2());
+        aux->setValue(alu.Rest(ptr_rest->getOperand1(), ptr_rest->getOperand2()));
     }
     break;
     case 84:
@@ -76,18 +83,18 @@ void CU::execute(int _code, Instruction *in)
         auto *ptr_mov = static_cast<MOV *>(in);
         cout << " " << ptr_mov->getValue() << ", ";
         cout << ptr_mov->getNameOfRegister() << endl;
-        //encontrar registro
-
-        //alu.Mov(ptr_mov->getValue(), );
+        alu.Mov(ptr_mov->getValue(), aux);
     }
     break;
     case 85:
     {
+        cout << in->getName();
     }
     break;
     default:
         break;
     }
+    return aux;
 }
 
 void CU::setStatus(string _status)
@@ -97,6 +104,5 @@ void CU::setStatus(string _status)
 
 void CU::displayStatus()
 {
-    cout << "\n"
-         << status << "\n";
+    cout << "\n" << status << "\n";
 }

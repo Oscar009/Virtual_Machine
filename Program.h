@@ -9,17 +9,17 @@ using namespace std;
 
 class Program
 {
-    Instruction *instructions[10];
+    Instruction **instructions;
     int size;
     int length;
 
 public:
     Program(){}
     Program(int);
+    ~Program();
 
     void addInstruction(Instruction *);
     Instruction *getInstruction(int);
-    Instruction **getInstructions();
 
     int getSize();
 };
