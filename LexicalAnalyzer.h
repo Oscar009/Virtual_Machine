@@ -3,21 +3,18 @@
 
 #include <string>
 #include <iostream>
-#include <fstream>
+#include "Errorhandler.h"
 
 using namespace std;
 
 class LexicalAnalyzer
 {
-    string file;
 
 public:
     LexicalAnalyzer();
-    LexicalAnalyzer(string);
 
-    void test1();
-    void test2();
-    void test3();
+    void lexicalRules(string, int, Errorhandler *);
+    int checkRule(char);
 };
 
 #endif

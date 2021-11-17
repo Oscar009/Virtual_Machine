@@ -12,6 +12,7 @@ void Compiler::printFile()
 {
     ifstream file;
     string line;
+    LexicalAnalyzer analyzer;
 
     file.open(nameFile, ios::in); //Abrir modo lectura
 
@@ -25,9 +26,13 @@ void Compiler::printFile()
     while (!file.eof()) //mientras no sea el final del archivo
     {
         getline(file, line);
-        cout << "line " << i+1 << line << endl;
+        cout << "line " << i + 1 << "  " << line << endl;
+        if(!line.empty()){
+            analyzer.lexicalRules(line, i + 1, &errorHandler);
+        }
         i++;
     }
 
     file.close();
+    errorHandler.printErrorHandler();
 }
