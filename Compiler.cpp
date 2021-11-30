@@ -4,15 +4,12 @@ Compiler::Compiler() {}
 
 Compiler::Compiler(string _nameOfFile) : nameFile(_nameOfFile) {}
 
-void Compiler::analyze()
-{
-}
-
-void Compiler::printFile()
+void Compiler::analyzeFile()
 {
     ifstream file;
     string line;
     LexicalAnalyzer analyzer;
+    SyntacticAnalyzer sanalyzer;
 
     file.open(nameFile, ios::in); //Abrir modo lectura
 
@@ -27,8 +24,10 @@ void Compiler::printFile()
     {
         getline(file, line);
         cout << "line " << i + 1 << "  " << line << endl;
-        if(!line.empty()){
+        if (!line.empty())
+        {
             analyzer.lexicalRules(line, i + 1, &errorHandler);
+            sanalyzer.syntacticRules(line, i + 1, &errorHandler);
         }
         i++;
     }

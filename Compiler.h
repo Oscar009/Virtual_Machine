@@ -19,8 +19,7 @@ public:
     Compiler();
     Compiler(string);
 
-    void analyze();
-    void printFile();
+    void analyzeFile();
 };
 
 #endif

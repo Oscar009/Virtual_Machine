@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 {
     //instancia de maquina virtual
     //registros
-/*     PC programCounter("PC");
+    PC programCounter("PC");
     IR instructionRegister("IR");
     MAR memoryAddressRegister("MAR");
     MBR memoryBufferRegister("MBR");
@@ -68,11 +68,11 @@ int main(int argc, char *argv[])
     CU controlUnit("status", registers, arithmeticLogicalUnit);
     Memory memory;
     ProgramLoader programLoader;
-    CPU cpu(registers, arithmeticLogicalUnit, controlUnit); */
+    CPU cpu(registers, arithmeticLogicalUnit, controlUnit); 
     Compiler compiler("test-1.tinyc");
 
     system("clear");
-/*     cout << "----- VIRTUAL MACHINE -----\n\n";
+    cout << "----- VIRTUAL MACHINE -----\n\n";
 
     START *start = new START("START", 50, 1);
     ADD *add = new ADD("ADD", 80, 3, 30, 10);
@@ -93,11 +93,11 @@ int main(int argc, char *argv[])
     program.addInstruction(mov);
     program.addInstruction(end);
 
-    cpu.machineCycle(&program); */
+    cpu.machineCycle(&program); 
+/* 
+    cout << "----- Analyze -----\n\n";
 
-    cout << "----- Lexical analyzer -----\n\n";
-
-    compiler.printFile();
+    compiler.analyzeFile(); */
 
     cout << "\n\n";
 
