@@ -4,7 +4,7 @@ Simulation of Virtual Machine
 
 ## UML
 
-Test file: UML.jpg
+Test file: `UML.jpg`
 
 ## Inline assembly
 
