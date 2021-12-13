@@ -45,6 +45,7 @@ Register *CU::execute(int _code, Instruction *in)
         cout << ptr_add->getOperand2() << endl;
         //cout << "Result: " << alu.Add(ptr_add->getOperand1(), ptr_add->getOperand2());
         aux->setValue(alu.Add(ptr_add->getOperand1(), ptr_add->getOperand2()));
+        cout << aux->getValue() << endl;
     }
     break;
     case 81:
@@ -55,6 +56,7 @@ Register *CU::execute(int _code, Instruction *in)
         cout << ptr_mult->getOperand2() << endl;
         //cout << "Result: " << alu.Mult(ptr_mult->getOperand1(), ptr_mult->getOperand2());
         aux->setValue(alu.Mult(ptr_mult->getOperand1(), ptr_mult->getOperand2()));
+        cout << aux->getValue() << endl;
     }
     break;
     case 82:
@@ -65,6 +67,7 @@ Register *CU::execute(int _code, Instruction *in)
         cout << ptr_div->getOperand2() << endl;
         //cout << "Result: " << alu.Div(ptr_div->getOperand1(), ptr_div->getOperand2());
         aux->setValue(alu.Div(ptr_div->getOperand1(), ptr_div->getOperand2()));
+        cout << aux->getValue() << endl;
     }
     break;
     case 83:
@@ -75,6 +78,7 @@ Register *CU::execute(int _code, Instruction *in)
         cout << ptr_rest->getOperand2() << endl;
         //cout << "Result: " << alu.Rest(ptr_rest->getOperand1(), ptr_rest->getOperand2());
         aux->setValue(alu.Rest(ptr_rest->getOperand1(), ptr_rest->getOperand2()));
+        cout << aux->getValue() << endl;
     }
     break;
     case 84:
